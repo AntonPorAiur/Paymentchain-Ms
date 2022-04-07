@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>    
+        </dependency>
       <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>

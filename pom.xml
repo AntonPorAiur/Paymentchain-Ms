@@ -42,8 +42,6 @@
     example maven deploy, this execute the entired default lifecycle, we can stop on install pahse.  
     but ussually we use maven clean install     
     -->
-    
-    
     <groupId>com.paymentchain</groupId>
     <artifactId>paymentchainparent</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -72,12 +70,10 @@
             </dependency>
         </dependencies>
     </dependencyManagement>  
-        
-    
+
     <dependencies>
         <!--Gives us the ability to quickly setup and run services
-        Property Defaults,Automatic Restart,Live Reload,Global Settings,Remote Applications for debug example via http--> 	
-
+        Property Defaults,Automatic Restart,Live Reload,Global Settings,Remote Applications for debug example via http-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -166,7 +162,6 @@
                     </buildArgs>
                 </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>

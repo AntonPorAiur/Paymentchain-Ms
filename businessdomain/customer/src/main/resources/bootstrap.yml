@@ -1,10 +1,10 @@
 ## YAML Template.
 springdoc:
   swagger-ui:
-      path: /swagger/index.html
-      enabled: true
+    path: /swagger/index.html
+    enabled: true
 server:
-    port: 8081
+  port: 8081
 eureka:
   client:
     serviceUrl:
@@ -12,6 +12,9 @@ eureka:
 spring: 
   application:
     name: businessdomain-customer
+#    mvc:
+#      pathmatch:
+#        matching-strategy: ant_path_matcher
   cloud:
     config:
       discovery:
@@ -20,7 +23,7 @@ spring:
       failFast: true
       #name of base properties config file, before profile
       name: config-client
-#      profile: development
+      #profile: development
       #label: latest
       username: admin
       password: qwerty

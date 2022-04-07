@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   #Docker Compose creates a virtual network between the services and the DNS name 
-  #used for each service is its name: that’s why it’s possible to use eureka-discovery as the hostname.
+  #used for each service is its name: that’s why it’s possible to use registry-discovery as the hostname.
   registry-discovery:
     container_name: id-eureka-ok
     image: paymentchain/ms-docker-eurekaserver:0.0.1-SNAPSHOT
@@ -56,7 +56,7 @@ services:
  ##########################################################################     
  #product service
  ##########################################################################  
-  product-catalog:
+  businessdomain-product:
     container_name: bd-product-catalog-ok
     image: paymentchain/ms-docker-products:0.0.1-SNAPSHOT
     environment:
@@ -64,7 +64,7 @@ services:
          -Xms256M 
          -Xmx256M
          -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
-         -Dspring.profiles.active=production
+         -Dspring.profiles.active=development
     depends_on:
       - registry-discovery
       - configuration
@@ -82,7 +82,7 @@ services:
          -Xms256M 
          -Xmx256M
          -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
-         -Dspring.profiles.active=production
+         -Dspring.profiles.active=development
     depends_on:
       - registry-discovery
       - configuration
@@ -92,7 +92,7 @@ services:
  ##########################################################################     
  #transaction service
  ##########################################################################  
-  transactions:
+  businessdomain-transactions:
     container_name: bd-transactions-ok
     image: paymentchain/ms-docker-transactions:0.0.1-SNAPSHOT
     environment:
@@ -100,7 +100,7 @@ services:
          -Xms256M 
          -Xmx256M
          -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
-         -Dspring.profiles.active=production
+         -Dspring.profiles.active=development
     depends_on:
       - registry-discovery
       - configuration
@@ -129,4 +129,4 @@ services:
     ports:
       - 80:80
     depends_on:
-      - postgress_db
+      - postgres_db

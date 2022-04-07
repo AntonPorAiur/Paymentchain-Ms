@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import com.paymentchain.products.entities.Product;
 import org.springframework.beans.factory.annotation.Value;
-/**
- *
- * @author sotobotero
- */
+
+
 @RestController
 @RequestMapping("/product")
 public class ProductRestController {
@@ -30,10 +28,10 @@ public class ProductRestController {
     @Autowired
     ProductRepository customerRepository;
          
-     @Value("${user.role}")
+    @Value("${user.role}")
     private String role;
     
-     @GetMapping()
+    @GetMapping()
     public List<Product> list() {
          System.out.print("el role es : " +role);
         return customerRepository.findAll();
