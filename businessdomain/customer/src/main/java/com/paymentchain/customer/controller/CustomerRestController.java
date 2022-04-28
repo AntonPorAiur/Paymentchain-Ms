@@ -7,6 +7,8 @@ package com.paymentchain.customer.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.paymentchain.customer.business.transaction.BusinessTransaction;
+import com.paymentchain.customer.common.CustomerResponseMapper;
+import com.paymentchain.customer.dto.CustomerResponse;
 import com.paymentchain.customer.entities.Customer;
 import com.paymentchain.customer.entities.CustomerProduct;
 import com.paymentchain.customer.respository.CustomerRepository;
@@ -54,6 +56,9 @@ public class CustomerRestController {
 
     @Value("${user.role}")
     private String role;
+
+    @Autowired
+    CustomerResponseMapper crsm;
   
 //    private final WebClient.Builder webClientBuilder;
     
@@ -62,24 +67,31 @@ public class CustomerRestController {
 //    }
 
     @Operation(summary = "Get full data on client",
-            description = "Provides all available students list")
+            description = "Provides full customer data")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "${api.response-codes.ok.desc}"),
-            @ApiResponse(responseCode = "400",
-                    description = "${api.response-codes.badRequest.desc}",
+            @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
+            @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
                     content = { @Content(examples = { @ExampleObject(value = "") }) }),
             @ApiResponse(responseCode = "404",
                     description = "${api.response-codes.notFound.desc}",
                     content = { @Content(examples = { @ExampleObject(value = "") }) }) })
     @GetMapping("/full")
-    public Customer get(@RequestParam  String code) {
+    public Customer get(@RequestParam String code) {
         return businessTransaction.getDetail(code);
     }
 
+    @Operation(summary = "Get all customers list",
+            description = "Provides all available customers list")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
+            @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
+                    content = { @Content(examples = { @ExampleObject(value = "") }) }),
+            @ApiResponse(responseCode = "404", description = "${api.response-codes.notFound.desc}",
+                    content = { @Content(examples = { @ExampleObject(value = "") }) }) })
     @GetMapping()
-    public List<Customer> list() {
-        return customerRepository.findAll();
+    public List<CustomerResponse> list() {
+        List<Customer> customers = customerRepository.findAll();
+        return crsm.CustomerLstToCustomerResponseLst(customers);
     }
 
     @GetMapping("/hello")
@@ -102,7 +114,7 @@ public class CustomerRestController {
     public ResponseEntity<?> post(@RequestBody Customer input) throws Exception {
 
         Customer save = businessTransaction.validaproductos(input);
-
+        CustomerResponse response = crsm.CustomerToCustomerResponse(save);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
     }
     
